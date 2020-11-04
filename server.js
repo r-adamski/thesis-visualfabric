@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-// simple map to hold blocks for processing
+// simple map to hold blocks for processingg
 class BlockMap {
     constructor() {
         this.list = []
