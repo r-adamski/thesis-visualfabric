@@ -92,6 +92,7 @@ function printData(block){
 			lol
 			lol234343434
 			555
+			huj kurwa
 
 
                         console.log(`Transaction Timestamp: ${writeObject.timestamp}`);
