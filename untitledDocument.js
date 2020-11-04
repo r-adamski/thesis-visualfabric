@@ -96,6 +96,7 @@ function printData(block){
 			kurwaqa
 
 japierdole
+kurwamac no
 
                         console.log(`Transaction Timestamp: ${writeObject.timestamp}`);
                         console.log(`ChaincodeID: ${writeObject.chaincodeid}`);
