@@ -99,6 +99,7 @@ japierdole
 kurwamac no
 sdfkjhnsdjdsfj
 gowno jebane
+huj
 
                         console.log(`Transaction Timestamp: ${writeObject.timestamp}`);
                         console.log(`ChaincodeID: ${writeObject.chaincodeid}`);
