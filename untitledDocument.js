@@ -90,7 +90,7 @@ function printData(block){
 			
 			sfsfsdfsdfsdfsdfdupaa
 			lol
-			lol2
+			lol234343434
 
 
                         console.log(`Transaction Timestamp: ${writeObject.timestamp}`);
