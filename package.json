@@ -1,0 +1,17 @@
+{
+    "name": "visualfabric",
+    "version": "1.0.0",
+    "description": "Scripts interacting with hyperledger fabric network",
+    "engines": {
+        "node": ">=8",
+        "npm": ">=5"
+    },
+    "scripts": {},
+    "engineStrict": true,
+    "author": "Rafal Adamski",
+    "license": "",
+    "dependencies": {
+        "fabric-ca-client": "^2.2.0",
+        "fabric-network": "^2.2.0"
+    }
+}
