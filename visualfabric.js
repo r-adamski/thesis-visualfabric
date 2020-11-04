@@ -5,8 +5,6 @@ const fs = require('fs');
 const path = require('path');
 
 
-
-
 // simple map to hold blocks for processing
 class BlockMap {
     constructor() {
@@ -17,12 +15,12 @@ class BlockMap {
         return this.list[`block${key}`];
     }
     set(key, blockData) {
-    
+
     	console.log(`------------------------------------------------`);
         console.log(`Converting block number: ${key}`);
     	let blockDataJSON = this.convertBlockToJSON(blockData);
     	console.log(`------------------------------------------------`);
-    
+
         this.list[`block${key}`] = blockData;
     }
     remove(key) {
@@ -60,7 +58,7 @@ async function main() {
 
         // Parse the connection profile. This would be the path to the file downloaded
         // from the IBM Blockchain Platform operational console.
-        const ccpPath = path.resolve(__dirname, '..', 'test-network','organizations','peerOrganizations','org1.example.com', 'connection-org1.json');
+        const ccpPath = path.resolve(__dirname, '..', '..', 'test-network','organizations','peerOrganizations','org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
@@ -73,8 +71,8 @@ async function main() {
 
         const listener = await network.addBlockListener(
             async (block) => {
-            
-            
+
+
                 // Add the block to the processing map by block number
                 await ProcessingMap.set(block.blockData.header.number, block.blockData);
 

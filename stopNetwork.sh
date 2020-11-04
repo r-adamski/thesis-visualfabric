@@ -10,7 +10,7 @@ set -ex
 starttime=$(date +%s)
 
 # Bring the test network down
-pushd ../test-network
+pushd ../../test-network
 ./network.sh down
 popd
 

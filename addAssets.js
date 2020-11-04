@@ -19,8 +19,7 @@ const sizes=[ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 ];
 const appraisedValues=[ 300, 310, 320, 330, 340, 350, 360, 370, 380, 390 ];
 const docType='asset'
 
-const config = require('./config.json');
-const channelid = config.channelid;
+const channelid = 'mychannel';
 
 async function main() {
 
@@ -48,7 +47,7 @@ async function main() {
         }
 
         // Parse the connection profile.
-        const ccpPath = path.resolve(__dirname, '..', 'test-network','organizations','peerOrganizations','org1.example.com', 'connection-org1.json');
+        const ccpPath = path.resolve(__dirname, '..', '..', 'test-network','organizations','peerOrganizations','org1.example.com', 'connection-org1.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Configure a wallet. This wallet must already be primed with an identity that

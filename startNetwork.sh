@@ -10,7 +10,7 @@ set -e pipefail
 starttime=$(date +%s)
 
 # launch network; create channel and join peer to channel
-pushd ../test-network
+pushd ../../test-network
 ./network.sh up createChannel -c mychannel -ca
 ./network.sh deployCC -ccn basic -ccl javascript
 

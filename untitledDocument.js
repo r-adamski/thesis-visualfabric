@@ -77,7 +77,7 @@ function printData(block){
                         writeObject.timestamp = timestamp;
                         writeObject.values = rwSet[record].rwset.writes;
 
-                      
+
                         const val = rwSet[record].rwset.writes;
 
 
@@ -85,21 +85,9 @@ function printData(block){
 
 				let buf = val[id].value;
 
-				console.log(buf.toString());					
+				console.log(buf.toString());
 			})
-			
-			sfsfsdfsdfsdfsdfdupaa
-			lol
-			lol234343434
-			555
-			huj kurwa
-			kurwaqa
 
-japierdole
-kurwamac no
-sdfkjhnsdjdsfj
-gowno jebane
-huj
 
                         console.log(`Transaction Timestamp: ${writeObject.timestamp}`);
                         console.log(`ChaincodeID: ${writeObject.chaincodeid}`);
