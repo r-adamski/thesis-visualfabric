@@ -11,6 +11,7 @@
     "author": "Rafal Adamski",
     "license": "",
     "dependencies": {
+        "@types/node": "^14.14.7",
         "fabric-ca-client": "^2.2.0",
         "fabric-network": "^2.2.0"
     }
