@@ -56,7 +56,7 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.header.number.Long.low;
+    const test = block.header.number.low;
     console.log(test);
 
     let parsed: Block = {

@@ -44,7 +44,7 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.header.number.Long.low;
+    var test = block.header.number.low;
     console.log(test);
     var parsed = {
         header: {
