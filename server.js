@@ -38,32 +38,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _a = require('fabric-network'), Wallets = _a.Wallets, Gateway = _a.Gateway;
 var fs = require('fs');
 var path = require('path');
-// simple map to hold blocks for processingg
-var BlockMap = /** @class */ (function () {
-    function BlockMap() {
-        this.list = [];
-    }
-    BlockMap.prototype.get = function (key) {
-        key = parseInt(key, 10).toString();
-        return this.list["block" + key];
-    };
-    BlockMap.prototype.set = function (key, blockData) {
-        console.log("------------------------------------------------");
-        console.log("Converting block number: " + key);
-        var blockDataJSON = this.convertBlockToJSON(blockData);
-        console.log("------------------------------------------------");
-        this.list["block" + key] = blockData;
-    };
-    BlockMap.prototype.remove = function (key) {
-        key = parseInt(key, 10).toString();
-        delete this.list["block" + key];
-    };
-    BlockMap.prototype.convertBlockToJSON = function (blockData) {
-        console.log(blockData);
-    };
-    return BlockMap;
-}());
-var ProcessingMap = new BlockMap();
+function parseFabricBlock(block) {
+    var parsed = { header: { number: 1, previous_hash: 'asd', data_hash: 'sdf' } };
+    var test = block.header.data_hash;
+    console.log(test);
+    return parsed;
+}
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var walletPath, wallet, userExists, ccpPath, ccp, gateway, network, listener, error_1;
@@ -96,16 +76,11 @@ function main() {
                     network = _a.sent();
                     return [4 /*yield*/, network.addBlockListener(function (block) { return __awaiter(_this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0: 
-                                    // Add the block to the processing map by block number
-                                    return [4 /*yield*/, ProcessingMap.set(block.blockData.header.number, block.blockData)];
-                                    case 1:
-                                        // Add the block to the processing map by block number
-                                        _a.sent();
-                                        console.log("Added block " + block.blockData.header.number + " to ProcessingMap");
-                                        return [2 /*return*/];
-                                }
+                                // Add the block to the processing map by block numberrrr
+                                //await ProcessingMap.set(block.blockData.header.number, block.blockData);
+                                parseFabricBlock(block.blockData);
+                                console.log("Added block " + block.blockData.header.number + " to ProcessingMap");
+                                return [2 /*return*/];
                             });
                         }); }, 
                         // set the starting block for the listener
