@@ -48,7 +48,7 @@ function parseFabricBlock(block: any): Block{
 
     let parsed: Block = {header: {number: 1, previous_hash: 'asd', data_hash: 'sdf'}};
 
-    const test = block.header.data_hash;
+    const test = block.header.data_hash.toString();
     console.log(test);
 
     return parsed;
