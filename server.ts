@@ -44,11 +44,18 @@ interface Block{
     }
 }
 
+//parse long from object like Long {low: 34, high: 1}
 function parseLongIntoString(data: any): string{
 
     let parsed: string = '';
 
-    //if(data)
+    if(data.high === 0){
+        parsed = data.low.toString();
+    }
+    else{
+        parsed = `Low: ${data.low.toString()} High: ${data.high.toString()}`;
+    }
+
     return parsed;
 }
 
@@ -56,12 +63,12 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.header.number.low;
+    const test = block;
     console.log(test);
 
     let parsed: Block = {
         header: {
-            number: block.header.number,
+            number: parseLongIntoString(block.header.number),
             previous_hash: block.header.previous_hash.toString('base64'),
             data_hash: block.header.data_hash.toString('base64')
         }
