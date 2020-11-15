@@ -38,16 +38,25 @@ const path = require('path');
 
 interface Block{
     header: {
-        number: number,
+        number: string, //long up to 64bit
         previous_hash: string,
         data_hash: string
     }
 }
 
+function parseLongIntoString(data: any): string{
+
+    let parsed: string = '';
+
+    //if(data)
+    return parsed;
+}
+
+
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.header.number
+    const test = block.header.number.Long.low;
     console.log(test);
 
     let parsed: Block = {

@@ -38,8 +38,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _a = require('fabric-network'), Wallets = _a.Wallets, Gateway = _a.Gateway;
 var fs = require('fs');
 var path = require('path');
+function parseLongIntoString(data) {
+    var parsed = '';
+    //if(data)
+    return parsed;
+}
 function parseFabricBlock(block) {
-    var test = block.header.number;
+    var test = block.header.number.Long.low;
     console.log(test);
     var parsed = {
         header: {
