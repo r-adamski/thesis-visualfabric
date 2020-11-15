@@ -6,35 +6,54 @@ const path = require('path');
 
 
 // simple map to hold blocks for processingg
-class BlockMap {
-    constructor() {
-        this.list = []
-    }
-    get(key) {
-        key = parseInt(key, 10).toString();
-        return this.list[`block${key}`];
-    }
-    set(key, blockData) {
+// class BlockMap {
+//     constructor() {
+//         this.list = []
+//     }
+//     get(key) {
+//         key = parseInt(key, 10).toString();
+//         return this.list[`block${key}`];
+//     }
+//     set(key, blockData) {
 
-    	console.log(`------------------------------------------------`);
-        console.log(`Converting block number: ${key}`);
-    	let blockDataJSON = this.convertBlockToJSON(blockData);
-    	console.log(`------------------------------------------------`);
+//     	console.log(`------------------------------------------------`);
+//         console.log(`Converting block number: ${key}`);
+//     	let blockDataJSON = this.convertBlockToJSON(blockData);
+//     	console.log(`------------------------------------------------`);
 
-        this.list[`block${key}`] = blockData;
-    }
-    remove(key) {
-        key = parseInt(key, 10).toString();
-        delete this.list[`block${key}`];
-    }
-    convertBlockToJSON(blockData) {
-    	console.log(blockData);
+//         this.list[`block${key}`] = blockData;
+//     }
+//     remove(key) {
+//         key = parseInt(key, 10).toString();
+//         delete this.list[`block${key}`];
+//     }
+//     convertBlockToJSON(blockData) {
+//     	console.log(blockData);
+//     }
+// }
+
+
+
+// let ProcessingMap = new BlockMap();
+
+interface Block{
+    header: {
+        number: number,
+        previous_hash: string,
+        data_hash: string
     }
 }
 
+function parseFabricBlock(block: any): Block{
 
+    let parsed: Block = {header: {number: 1, previous_hash: 'asd', data_hash: 'sdf'}};
 
-let ProcessingMap = new BlockMap();
+    const test = block.header.data_hash;
+    console.log(test);
+
+    return parsed;
+}
+
 
 async function main() {
 
@@ -74,7 +93,9 @@ async function main() {
 
 
                 // Add the block to the processing map by block number
-                await ProcessingMap.set(block.blockData.header.number, block.blockData);
+                //await ProcessingMap.set(block.blockData.header.number, block.blockData);
+
+                parseFabricBlock(block.blockData);
 
                 console.log(`Added block ${block.blockData.header.number} to ProcessingMap`);
 
