@@ -50,7 +50,7 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.metadata.metadata[2];
+    var test = block.metadata.metadata[4].toString('base64');
     console.log(test);
     var parsed = {
         header: {
