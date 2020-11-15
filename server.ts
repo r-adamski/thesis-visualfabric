@@ -92,7 +92,7 @@ async function main() {
             async (block) => {
 
 
-                // Add the block to the processing map by block number
+                // Add the block to the processing map by block numberr
                 //await ProcessingMap.set(block.blockData.header.number, block.blockData);
 
                 parseFabricBlock(block.blockData);

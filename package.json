@@ -9,7 +9,7 @@
     "scripts": {},
     "engineStrict": true,
     "author": "Rafal Adamski",
-    "license": "",
+    "license": " ",
     "dependencies": {
         "@types/node": "^14.14.7",
         "fabric-ca-client": "^2.2.0",
