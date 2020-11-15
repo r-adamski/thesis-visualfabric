@@ -40,7 +40,7 @@ var fs = require('fs');
 var path = require('path');
 function parseFabricBlock(block) {
     var parsed = { header: { number: 1, previous_hash: 'asd', data_hash: 'sdf' } };
-    var test = block.header.data_hash.toString('utf-8');
+    var test = block.header.data_hash.toString('base64');
     console.log(test);
     return parsed;
 }
