@@ -63,7 +63,7 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.metadata.metadata[0];
+    const test = block.metadata.metadata[2];
     console.log(test);
 
     let parsed: Block = {

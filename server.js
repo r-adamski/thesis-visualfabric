@@ -50,7 +50,7 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.metadata.metadata[0];
+    var test = block.metadata.metadata[2];
     console.log(test);
     var parsed = {
         header: {
