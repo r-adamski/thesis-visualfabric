@@ -39,9 +39,15 @@ var _a = require('fabric-network'), Wallets = _a.Wallets, Gateway = _a.Gateway;
 var fs = require('fs');
 var path = require('path');
 function parseFabricBlock(block) {
-    var parsed = { header: { number: 1, previous_hash: 'asd', data_hash: 'sdf' } };
-    var test = block.header.data_hash.toString('base64');
+    var test = block.header.number;
     console.log(test);
+    var parsed = {
+        header: {
+            number: block.header.number,
+            previous_hash: block.header.previous_hash.toString('base64'),
+            data_hash: block.header.data_hash.toString('base64')
+        }
+    };
     return parsed;
 }
 function main() {

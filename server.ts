@@ -46,10 +46,17 @@ interface Block{
 
 function parseFabricBlock(block: any): Block{
 
-    let parsed: Block = {header: {number: 1, previous_hash: 'asd', data_hash: 'sdf'}};
 
-    const test = block.header.data_hash.toString('base64');
+    const test = block.header.number
     console.log(test);
+
+    let parsed: Block = {
+        header: {
+            number: block.header.number,
+            previous_hash: block.header.previous_hash.toString('base64'),
+            data_hash: block.header.data_hash.toString('base64')
+        }
+    };
 
     return parsed;
 }
