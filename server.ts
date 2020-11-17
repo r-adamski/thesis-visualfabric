@@ -141,6 +141,7 @@ function parseFabricBlock(block: any): Block{
 
     //const test = block.data.data[0].payload.data?.config.channel_group.groups;
     console.log(JSON.stringify(block));
+    console.log('\n\n\n\n');
 
 
 
