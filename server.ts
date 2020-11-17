@@ -56,12 +56,14 @@ interface BlockData{
         typeString: string
     },
     signature_header: {
+        creator_msp_id: string,
+        creator_id_bytes: string,
+        nonce: string
+    },
+    data_config?: {
 
     },
-    data_config: {
-
-    },
-    data_last_update: {
+    data_last_update?: {
 
     }
 }
@@ -102,7 +104,7 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.data.data[0].payload.header.signature_header;
+    const test = block.data.data[0].payload;
     console.log(test);
 
 
@@ -126,7 +128,7 @@ function parseFabricBlock(block: any): Block{
 
     block.data.data.forEach(element => {
 
-        const single_data = {
+        let single_data = {
             signature: element.signature,
             channel_header: {
                 type: element.payload.header.channel_header.type,
@@ -139,7 +141,9 @@ function parseFabricBlock(block: any): Block{
                 typeString: element.payload.header.channel_header.typeString
             },
             signature_header: {
-
+                creator_msp_id: element.payload.header.signature_header.creator.mspid,
+                creator_id_bytes: element.payload.header.signature_header.creator.id_bytes.toString('base64'),
+                nonce: element.payload.header.signature_header.nonce.toString('base64')
             },
             data_config: {
 

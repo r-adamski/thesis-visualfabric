@@ -50,7 +50,7 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.data.data[0].payload.header.signature_header;
+    var test = block.data.data[0].payload;
     console.log(test);
     //parse signatures
     var parsed_signatures = [];
@@ -78,7 +78,11 @@ function parseFabricBlock(block) {
                 extension: element.payload.header.channel_header.extension.toString('base64'),
                 typeString: element.payload.header.channel_header.typeString
             },
-            signature_header: {},
+            signature_header: {
+                creator_msp_id: element.payload.header.signature_header.creator.mspid,
+                creator_id_bytes: element.payload.header.signature_header.creator.id_bytes.toString('base64'),
+                nonce: element.payload.header.signature_header.nonce.toString('base64')
+            },
             data_config: {},
             data_last_update: {}
         };
