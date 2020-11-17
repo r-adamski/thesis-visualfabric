@@ -61,7 +61,42 @@ interface BlockData{
         nonce: string
     },
     data_config?: {
-        //config_sequence: string, //long up to 64bit
+        // config_sequence: string, //long up to 64bit
+        // channel_group: {
+        //     version: number,
+        //     groups: {
+
+        //     },
+        //     values: {
+        //         OrdererAddress: {
+
+        //         },
+        //         Capabilities: {
+
+        //         },
+        //         Consortium: {
+
+        //         },
+        //         HashingAlgorithm: {
+
+        //         },
+        //         BlockDataHashingStructure: {
+
+        //         }
+        //     },
+        //     policies: {
+        //         Readers: {
+
+        //         },
+        //         Writers: {
+
+        //         },
+        //         Admins: {
+
+        //         }
+        //     },
+        //     mod_policy: string
+        // }
     },
     data_last_update?: {
 
@@ -104,7 +139,7 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.data.data[0].payload.data.config;
+    const test = block.data.data[0].payload.data.config.channel_group.groups;
     console.log(test);
 
 

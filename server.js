@@ -50,7 +50,7 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.data.data[0].payload.data.config;
+    var test = block.data.data[0].payload.data.config.channel_group.groups;
     console.log(test);
     //parse signatures
     var parsed_signatures = [];
