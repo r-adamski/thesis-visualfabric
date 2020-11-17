@@ -223,7 +223,7 @@ function parseFabricBlock(block: any): Block{
 115
         ]);
 
-        console.log(cos.toString('base64'));
+        console.log(cos.toString('utf-8'));
 
     //parse signatures
     let parsed_signatures: Signature[] = [];

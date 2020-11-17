@@ -132,7 +132,7 @@ function parseFabricBlock(block) {
         110,
         115
     ]);
-    console.log(cos.toString('base64'));
+    console.log(cos.toString('utf-8'));
     //parse signatures
     var parsed_signatures = [];
     block.metadata.metadata[0].signatures.forEach(function (element) {
