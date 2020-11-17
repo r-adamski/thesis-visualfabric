@@ -117,7 +117,7 @@ function parseFabricBlock(block: any): Block{
     //parse data
     let parsed_data = [];
 
-    block.data.forEach(el => {
+    block.data.data.forEach(el => {
 
         let s = el.signature;
     });

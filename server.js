@@ -50,7 +50,7 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.data.data[0];
+    var test = block.data.data[0].payload.header.channel_header;
     console.log(test);
     //parse signatures
     var parsed_signatures = [];
@@ -65,7 +65,7 @@ function parseFabricBlock(block) {
     });
     //parse data
     var parsed_data = [];
-    block.data.forEach(function (el) {
+    block.data.data.forEach(function (el) {
         var s = el.signature;
     });
     var parsed = {
