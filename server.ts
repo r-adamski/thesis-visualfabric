@@ -88,6 +88,8 @@ function parseLongIntoString(data: any): string{
 
     let parsed: string = '';
 
+    console.log(data);
+
     if(data.high === 0){
         parsed = data.low.toString();
     }
@@ -102,16 +104,16 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.data.data[0].payload.header.signature_header;
-    console.log(test);
+    //const test = block.data.data[0].payload.header.signature_header;
+    //console.log(test);
 
 
 
     //parse signatures
-    let parsed_signatures = [];
+    let parsed_signatures: Signature[] = [];
     block.metadata.metadata[0].signatures.forEach(element => {
 
-        const signature = {
+        const signature: Signature = {
             creator_msp_id: element.signature_header.creator.mspid,
             creator_id_bytes: element.signature_header.creator.id_bytes.toString('base64'),
             nonce: element.signature_header.nonce.toString('base64'),
@@ -122,7 +124,7 @@ function parseFabricBlock(block: any): Block{
     });
 
     //parse data
-    let parsed_data = [];
+    let parsed_data: BlockData[] = [];
 
     block.data.data.forEach(element => {
 
