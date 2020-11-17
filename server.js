@@ -41,7 +41,6 @@ var path = require('path');
 //parse long from object like Long {low: 34, high: 1}
 function parseLongIntoString(data) {
     var parsed = '';
-    console.log(data);
     if (data.high === 0) {
         parsed = data.low.toString();
     }
@@ -67,6 +66,7 @@ function parseFabricBlock(block) {
     //parse data
     var parsed_data = [];
     block.data.data.forEach(function (element) {
+        console.log(element);
         var single_data = {
             signature: element.signature,
             channel_header: {

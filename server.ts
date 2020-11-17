@@ -88,8 +88,6 @@ function parseLongIntoString(data: any): string{
 
     let parsed: string = '';
 
-    console.log(data);
-
     if(data.high === 0){
         parsed = data.low.toString();
     }
@@ -127,6 +125,8 @@ function parseFabricBlock(block: any): Block{
     let parsed_data: BlockData[] = [];
 
     block.data.data.forEach(element => {
+
+        console.log(element);
 
         const single_data = {
             signature: element.signature,
