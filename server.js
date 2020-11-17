@@ -50,8 +50,8 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    //const test = block.data.data[0].payload.header.signature_header;
-    //console.log(test);
+    var test = block.data.data[0].payload.header.signature_header;
+    console.log(test);
     //parse signatures
     var parsed_signatures = [];
     block.metadata.metadata[0].signatures.forEach(function (element) {
@@ -66,18 +66,17 @@ function parseFabricBlock(block) {
     //parse data
     var parsed_data = [];
     block.data.data.forEach(function (element) {
-        console.log(element);
         var single_data = {
             signature: element.signature,
             channel_header: {
-                type: element.type,
-                version: element.version,
-                timestamp: element.timestamp,
-                channel_id: element.channel_id,
-                tx_id: element.tx_id,
-                epoch: parseLongIntoString(element.epoch),
-                extension: element.extension.toString('base64'),
-                typeString: element.typeString
+                type: element.payload.header.channel_header.type,
+                version: element.payload.header.channel_header.version,
+                timestamp: element.payload.header.channel_header.timestamp,
+                channel_id: element.payload.header.channel_header.channel_id,
+                tx_id: element.payload.header.channel_header.tx_id,
+                epoch: parseLongIntoString(element.payload.header.channel_header.epoch),
+                extension: element.payload.header.channel_header.extension.toString('base64'),
+                typeString: element.payload.header.channel_header.typeString
             },
             signature_header: {},
             data_config: {},
