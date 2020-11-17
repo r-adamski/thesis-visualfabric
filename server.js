@@ -51,8 +51,24 @@ function parseLongIntoString(data) {
 }
 function parseFabricBlock(block) {
     //const test = block.data.data[0].payload.data?.config.channel_group.groups;
-    console.log(JSON.stringify(block));
-    console.log('\n\n\n\n');
+    //console.log(JSON.stringify(block));
+    //console.log('\n\n\n\n');
+    var cos = Buffer.from([
+        18,
+        11,
+        10,
+        3,
+        49,
+        46,
+        48,
+        26,
+        4,
+        101,
+        115,
+        99,
+        99
+    ]);
+    console.log(cos.toString('base64'));
     //parse signatures
     var parsed_signatures = [];
     block.metadata.metadata[0].signatures.forEach(function (element) {
