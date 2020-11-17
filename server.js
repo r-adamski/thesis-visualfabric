@@ -50,8 +50,18 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.metadata.metadata[0].signatures[0].signature_header;
+    var test = block.data.data[0];
     console.log(test);
+    var parsed_signatures = [];
+    block.metadata.metadata[0].signatures.array.forEach(function (element) {
+        var signature = {
+            creator_msp_id: element.signature_header.creator.mspid,
+            creator_id_bytes: element.signature_header.creator.id_bytes.toString('base64'),
+            nonce: element.signature_header.nonce.toString('base64'),
+            signature: element.signature.toString('base64')
+        };
+        parsed_signatures.push(signature);
+    });
     var parsed = {
         header: {
             number: parseLongIntoString(block.header.number),
@@ -59,8 +69,12 @@ function parseFabricBlock(block) {
             data_hash: block.header.data_hash.toString('base64')
         },
         metadata: {
-            value: 'sdf',
-            signatures: [{}, {}]
+            value: block.metadata.metadata[0].value.toString('base64'),
+            signatures: parsed_signatures,
+            something: block.metadata.metadata[1],
+            something2: block.metadata.metadata[2],
+            something3: block.metadata.metadata[3],
+            end_value: block.metadata.metadata[4].toString('base64')
         }
     };
     return parsed;
