@@ -61,7 +61,7 @@ interface BlockData{
         nonce: string
     },
     data_config?: {
-
+        //config_sequence: string, //long up to 64bit
     },
     data_last_update?: {
 
@@ -104,7 +104,7 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.data.data[0].payload;
+    const test = block.data.data[0].payload.data.config;
     console.log(test);
 
 
