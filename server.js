@@ -52,6 +52,7 @@ function parseLongIntoString(data) {
 function parseFabricBlock(block) {
     var test = block.data.data[0];
     console.log(test);
+    //parse signatures
     var parsed_signatures = [];
     block.metadata.metadata[0].signatures.forEach(function (element) {
         var signature = {
@@ -62,12 +63,18 @@ function parseFabricBlock(block) {
         };
         parsed_signatures.push(signature);
     });
+    //parse data
+    var parsed_data = [];
+    block.data.forEach(function (el) {
+        var s = el.signature;
+    });
     var parsed = {
         header: {
             number: parseLongIntoString(block.header.number),
             previous_hash: block.header.previous_hash.toString('base64'),
             data_hash: block.header.data_hash.toString('base64')
         },
+        data: parsed_data,
         metadata: {
             value: block.metadata.metadata[0].value.toString('base64'),
             signatures: parsed_signatures,

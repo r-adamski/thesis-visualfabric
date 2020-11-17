@@ -43,12 +43,29 @@ interface Signature{
     signature: string
 }
 
+interface BlockData{
+    signature: string,
+    channel_header: {
+
+    },
+    signature_header: {
+
+    },
+    data_config: {
+
+    },
+    data_last_update: {
+
+    }
+}
+
 interface Block{
     header: {
         number: string, //long up to 64bit
         previous_hash: string,
         data_hash: string
     },
+    data: BlockData[],
     metadata: {
         value: string,
         signatures: Signature[],
@@ -78,13 +95,13 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.data.data[0];
+    const test = block.data.data[0].payload.header.channel_header;
     console.log(test);
 
 
 
+    //parse signatures
     let parsed_signatures = [];
-
     block.metadata.metadata[0].signatures.forEach(element => {
 
         const signature = {
@@ -97,12 +114,21 @@ function parseFabricBlock(block: any): Block{
         parsed_signatures.push(signature);
     });
 
+    //parse data
+    let parsed_data = [];
+
+    block.data.forEach(el => {
+
+        let s = el.signature;
+    });
+
     let parsed: Block = {
         header: {
             number: parseLongIntoString(block.header.number),
             previous_hash: block.header.previous_hash.toString('base64'),
             data_hash: block.header.data_hash.toString('base64')
         },
+        data: parsed_data,
         metadata: {
             value: block.metadata.metadata[0].value.toString('base64'),
             signatures: parsed_signatures,
