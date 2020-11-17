@@ -139,8 +139,8 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.data.data[0].payload.data?.config.channel_group.groups;
-    console.log(test);
+    //const test = block.data.data[0].payload.data?.config.channel_group.groups;
+    console.log(JSON.stringify(block));
 
 
 
