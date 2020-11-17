@@ -85,7 +85,7 @@ function parseFabricBlock(block: any): Block{
 
     let parsed_signatures = [];
 
-    block.metadata.metadata[0].signatures.array.forEach(element => {
+    block.metadata.metadata[0].signatures.forEach(element => {
 
         const signature = {
             creator_msp_id: element.signature_header.creator.mspid,

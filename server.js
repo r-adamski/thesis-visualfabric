@@ -53,7 +53,7 @@ function parseFabricBlock(block) {
     var test = block.data.data[0];
     console.log(test);
     var parsed_signatures = [];
-    block.metadata.metadata[0].signatures.array.forEach(function (element) {
+    block.metadata.metadata[0].signatures.forEach(function (element) {
         var signature = {
             creator_msp_id: element.signature_header.creator.mspid,
             creator_id_bytes: element.signature_header.creator.id_bytes.toString('base64'),
