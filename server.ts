@@ -139,7 +139,7 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.data.data[0].payload.data.config.channel_group.groups;
+    const test = block.data.data[0].payload.data?.config.channel_group.groups;
     console.log(test);
 
 
