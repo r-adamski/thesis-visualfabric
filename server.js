@@ -50,13 +50,17 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.metadata.metadata[4].toString('base64');
+    var test = block.metadata.metadata[0].signatures[0].signature_header;
     console.log(test);
     var parsed = {
         header: {
             number: parseLongIntoString(block.header.number),
             previous_hash: block.header.previous_hash.toString('base64'),
             data_hash: block.header.data_hash.toString('base64')
+        },
+        metadata: {
+            value: 'sdf',
+            signatures: [{}, {}]
         }
     };
     return parsed;

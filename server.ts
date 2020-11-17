@@ -36,11 +36,20 @@ const path = require('path');
 
 // let ProcessingMap = new BlockMap();
 
+interface Signature{
+    signature_header: any,
+    signature: string
+}
+
 interface Block{
     header: {
         number: string, //long up to 64bit
         previous_hash: string,
         data_hash: string
+    },
+    metadata: {
+        value: string,
+        signatures: any[]
     }
 }
 
@@ -63,7 +72,7 @@ function parseLongIntoString(data: any): string{
 function parseFabricBlock(block: any): Block{
 
 
-    const test = block.metadata.metadata[4].toString('base64');
+    const test = block.metadata.metadata[0].signatures[0].signature_header;
     console.log(test);
 
     let parsed: Block = {
@@ -71,6 +80,10 @@ function parseFabricBlock(block: any): Block{
             number: parseLongIntoString(block.header.number),
             previous_hash: block.header.previous_hash.toString('base64'),
             data_hash: block.header.data_hash.toString('base64')
+        },
+        metadata: {
+            value: 'sdf',
+            signatures:  [{}, {}]
         }
     };
 
