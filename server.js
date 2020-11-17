@@ -50,7 +50,7 @@ function parseLongIntoString(data) {
     return parsed;
 }
 function parseFabricBlock(block) {
-    var test = block.data.data[0].payload.header.channel_header;
+    var test = block.data.data[0].payload.header.signature_header;
     console.log(test);
     //parse signatures
     var parsed_signatures = [];
@@ -65,8 +65,24 @@ function parseFabricBlock(block) {
     });
     //parse data
     var parsed_data = [];
-    block.data.data.forEach(function (el) {
-        var s = el.signature;
+    block.data.data.forEach(function (element) {
+        var single_data = {
+            signature: element.signature,
+            channel_header: {
+                type: element.type,
+                version: element.version,
+                timestamp: element.timestamp,
+                channel_id: element.channel_id,
+                tx_id: element.tx_id,
+                epoch: parseLongIntoString(element.epoch),
+                extension: element.extension.toString('base64'),
+                typeString: element.typeString
+            },
+            signature_header: {},
+            data_config: {},
+            data_last_update: {}
+        };
+        parsed_data.push(single_data);
     });
     var parsed = {
         header: {
