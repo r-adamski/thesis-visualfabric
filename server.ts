@@ -140,8 +140,8 @@ function parseFabricBlock(block: any): Block{
 
 
     //const test = block.data.data[0].payload.data?.config.channel_group.groups;
-    //console.log(JSON.stringify(block));
-    //console.log('\n\n\n\n');
+    console.log(JSON.stringify(block));
+    console.log('\n\n\n\n');
 
     let cos = Buffer.from([
         18,
@@ -159,7 +159,7 @@ function parseFabricBlock(block: any): Block{
         99
         ]);
 
-        console.log(cos.toString());
+        //console.log(cos.toString());
 
     //parse signatures
     let parsed_signatures: Signature[] = [];
