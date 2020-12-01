@@ -1,7 +1,7 @@
 {
     "name": "visualfabric",
     "version": "1.0.0",
-    "description": "Scripts interacting with hyperledger fabric networkk",
+    "description": "Scripts interacting with hyperledger fabric networkkk",
     "engines": {
         "node": ">=8",
         "npm": ">=5"
