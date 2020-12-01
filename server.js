@@ -38,6 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _a = require('fabric-network'), Wallets = _a.Wallets, Gateway = _a.Gateway;
 var fs = require('fs');
 var path = require('path');
+var express = require('express');
+var app = express();
 //parse long from object like Long {low: 34, high: 1}
 function parseLongIntoString(data) {
     var parsed = '';
@@ -298,7 +300,13 @@ function main() {
                     console.error("Failed to evaluate transaction: " + error_1);
                     process.exit(1);
                     return [3 /*break*/, 7];
-                case 7: return [2 /*return*/];
+                case 7:
+                    //start express server and sockets
+                    app.use(express.static(path.join(__dirname, "visualfabric", "build")));
+                    app.listen(5000, function () {
+                        console.log('Visualfabric App started on port 5000');
+                    });
+                    return [2 /*return*/];
             }
         });
     });

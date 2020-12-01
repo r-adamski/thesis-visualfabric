@@ -3,6 +3,8 @@
 const { Wallets, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
+const express = require('express');
+const app = express();
 
 interface Signature{
     creator_msp_id: string,
@@ -380,10 +382,6 @@ let processing_map = new BlockMap();
 
 async function main() {
 
-
-//start express server and sockets
-
-
     try {
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
@@ -434,6 +432,14 @@ async function main() {
         console.error(`Failed to evaluate transaction: ${error}`);
         process.exit(1);
     }
+
+    //start express server and sockets
+    app.use(express.static(path.join(__dirname, "visualfabric", "build")));
+
+    app.listen(5000, () => {
+        console.log('Visualfabric App started on port 5000');
+    });
+
 }
 
 main();
