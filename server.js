@@ -41,48 +41,157 @@ var path = require('path');
 //parse long from object like Long {low: 34, high: 1}
 function parseLongIntoString(data) {
     var parsed = '';
-    if (data.high === 0) {
-        parsed = data.low.toString();
+    if ((data === null || data === void 0 ? void 0 : data.high) === 0) {
+        parsed = data === null || data === void 0 ? void 0 : data.low.toString();
     }
     else {
-        parsed = "Low: " + data.low.toString() + " High: " + data.high.toString();
+        parsed = "Low: " + (data === null || data === void 0 ? void 0 : data.low.toString()) + " High: " + (data === null || data === void 0 ? void 0 : data.high.toString());
     }
     return parsed;
 }
+//only normal blocks with data - config blocks are blank for now
 function parseFabricBlock(block) {
     //const test = block.data.data[0].payload.data?.config.channel_group.groups;
-    console.log(JSON.stringify(block));
-    console.log('\n\n\n\n');
-    var cos = Buffer.from([
-        18,
-        11,
-        10,
-        3,
-        49,
-        46,
-        48,
-        26,
-        4,
-        101,
-        115,
-        99,
-        99
-    ]);
-    //console.log(cos.toString());
-    //parse signatures
+    //console.log(JSON.stringify(block));
+    //console.log('\n\n\n\n');
+    //parse signatures from metadata
     var parsed_signatures = [];
     block.metadata.metadata[0].signatures.forEach(function (element) {
         var signature = {
             creator_msp_id: element.signature_header.creator.mspid,
-            creator_id_bytes: element.signature_header.creator.id_bytes.toString('base64'),
-            nonce: element.signature_header.nonce.toString('base64'),
             signature: element.signature.toString('base64')
         };
         parsed_signatures.push(signature);
     });
-    //parse data
+    //parse BlockData
     var parsed_data = [];
     block.data.data.forEach(function (element) {
+        //parse actions
+        var parsed_actions = [];
+        element.payload.data.actions.forEach(function (action) {
+            //parse input args
+            var parsed_input_args = [];
+            action.payload.chaincode_proposal_payload.input.chaincode_spec.input.args.forEach(function (arg) {
+                parsed_input_args.push(arg.toString('base64'));
+            });
+            //parse endorsements signatures
+            var parsed_endorsements_signatures = [];
+            action.payload.action.endorsements.forEach(function (endorsm) {
+                var single_endorsm = {
+                    creator_msp_id: endorsm.endorser.mspid,
+                    signature: endorsm.signature.toString('base64')
+                };
+                parsed_endorsements_signatures.push(single_endorsm);
+            });
+            //parse RWsets --- ignore
+            var parsed_rwsets = [];
+            action.payload.action.proposal_response_payload.extension.results.ns_rwset.forEach(function (rw) {
+                //check if lscc
+                if (rw.namespace === 'lscc')
+                    return;
+                //parse reads
+                var parsed_reads = [];
+                rw.rwest.reads.forEach(function (read) {
+                    parsed_reads.push(read.key);
+                });
+                //parse range queries
+                var parsed_range_queries = [];
+                rw.rwest.range_queries_info.forEach(function (query) {
+                    //parsed_range_queries.push(query.key);  idk whats inside
+                });
+                //parse writes
+                var parsed_writes = [];
+                rw.rwest.writes.forEach(function (write) {
+                    var single_write = {
+                        key: write.key,
+                        is_delete: write.is_delete,
+                        value: write.value.toString('base64')
+                    };
+                    parsed_writes.push(single_write);
+                });
+                //parse range queries
+                var parsed_collection_hashed_rw = [];
+                rw.collection_hashed_rwset.forEach(function (collection) {
+                    //parse hashed reads
+                    var parsed_hashed_reads = [];
+                    collection.hashed_reads.forEach(function (hashed_read) {
+                        var _a, _b;
+                        var single_hashed_read = {
+                            key_hash: hashed_read.key_hash.toString('base64'),
+                            block_num: parseLongIntoString((_a = hashed_read === null || hashed_read === void 0 ? void 0 : hashed_read.version) === null || _a === void 0 ? void 0 : _a.block_num),
+                            tx_num: parseLongIntoString((_b = hashed_read === null || hashed_read === void 0 ? void 0 : hashed_read.version) === null || _b === void 0 ? void 0 : _b.tx_num)
+                        };
+                        parsed_hashed_reads.push(single_hashed_read);
+                    });
+                    //parse hashed writes
+                    var parsed_hashed_writes = [];
+                    collection.hashed_writes.forEach(function (hashed_write) {
+                        var single_hashed_write = {
+                            key_hash: hashed_write.key_hash.toString('base64'),
+                            is_delete: hashed_write === null || hashed_write === void 0 ? void 0 : hashed_write.is_delete,
+                            value_hash: hashed_write === null || hashed_write === void 0 ? void 0 : hashed_write.value_hash.toString('base64')
+                        };
+                        parsed_hashed_writes.push(single_hashed_write);
+                    });
+                    var single_collection = {
+                        collection_name: collection.collection_name,
+                        hashed_reads: parsed_hashed_reads,
+                        hashed_writes: parsed_hashed_writes,
+                        pvt_rwset_hash: collection.pvt_rwset_hash.toString('base64')
+                    };
+                    parsed_collection_hashed_rw.push(single_collection);
+                });
+                var single_rwset = {
+                    namespace: rw.namespace,
+                    rwset: {
+                        reads: parsed_reads,
+                        range_queries_info: parsed_range_queries,
+                        writes: parsed_writes
+                    },
+                    collection_hashed_rwset: parsed_collection_hashed_rw
+                };
+                parsed_rwsets.push(single_rwset);
+            });
+            var single_action = {
+                header: {
+                    creator_msp_id: action.header.creator.mspid,
+                    creador_id_bytes: action.header.creator.id_bytes.toString('base64')
+                },
+                chaincode_proposal_payload: {
+                    type: action.payload.chaincode_proposal_payload.input.chaincode_spec.type,
+                    typeString: action.payload.chaincode_proposal_payload.input.chaincode_spec.type,
+                    input: {
+                        args: parsed_input_args,
+                        is_init: action.payload.chaincode_proposal_payload.input.chaincode_spec.input.is_init
+                    },
+                    chaincode_id_name: action.payload.chaincode_proposal_payload.input.chaincode_spec.chaincode_id.name
+                },
+                proposal_response_payload: {
+                    proposal_hash: action.payload.action.proposal_response_payload.proposal_hash.toString('base64'),
+                    results: {
+                        data_model: action.payload.action.proposal_response_payload.extension.results.data_model,
+                        ns_rwset: parsed_rwsets
+                    },
+                    events: {
+                        chaincode_id: action.payload.action.proposal_response_payload.extension.events.chaincode_id,
+                        tx_id: action.payload.action.proposal_response_payload.extension.events.tx_id,
+                        event_name: action.payload.action.proposal_response_payload.extension.evens.event_name,
+                        payload: action.payload.action.proposal_response_payload.extension.events.payload.toString('base64')
+                    },
+                    response: {
+                        status: action.payload.action.proposal_response_payload.extension.response.status,
+                        message: action.payload.action.proposal_response_payload.extension.response.message,
+                        payload: action.payload.action.proposal_response_payload.extension.response.payload.toString('base64')
+                    },
+                    chaincode_id: {
+                        path: action.payload.action.proposal_response_payload.extension.chaincode_id.path,
+                        name: action.payload.action.proposal_response_payload.extension.chaincode_id.name,
+                        version: action.payload.action.proposal_response_payload.extension.chaincode_id.version
+                    }
+                },
+                endorsements: parsed_endorsements_signatures
+            };
+        });
         var single_data = {
             signature: element.signature,
             channel_header: {
@@ -91,17 +200,14 @@ function parseFabricBlock(block) {
                 timestamp: element.payload.header.channel_header.timestamp,
                 channel_id: element.payload.header.channel_header.channel_id,
                 tx_id: element.payload.header.channel_header.tx_id,
-                epoch: parseLongIntoString(element.payload.header.channel_header.epoch),
                 extension: element.payload.header.channel_header.extension.toString('base64'),
                 typeString: element.payload.header.channel_header.typeString
             },
             signature_header: {
                 creator_msp_id: element.payload.header.signature_header.creator.mspid,
-                creator_id_bytes: element.payload.header.signature_header.creator.id_bytes.toString('base64'),
-                nonce: element.payload.header.signature_header.nonce.toString('base64')
+                creator_id_bytes: element.payload.header.signature_header.creator.id_bytes.toString('base64')
             },
-            data_config: {},
-            data_last_update: {}
+            actions: parsed_actions
         };
         parsed_data.push(single_data);
     });
@@ -114,15 +220,31 @@ function parseFabricBlock(block) {
         data: parsed_data,
         metadata: {
             value: block.metadata.metadata[0].value.toString('base64'),
-            signatures: parsed_signatures,
-            something: block.metadata.metadata[1],
-            something2: block.metadata.metadata[2],
-            something3: block.metadata.metadata[3],
-            end_value: block.metadata.metadata[4].toString('base64')
+            signatures: parsed_signatures
         }
     };
     return parsed;
 }
+//simple map to hold blocks for processingg
+var BlockMap = /** @class */ (function () {
+    function BlockMap() {
+        this.list = [];
+    }
+    BlockMap.prototype.get = function (key) {
+        return this.list.find(function (el) { return el.id === key; });
+    };
+    BlockMap.prototype.set = function (key, data) {
+        //remove old if exist
+        this.list.filter(function (el) { return el.id === key; });
+        //push new
+        this.list.push({
+            id: key,
+            data: data
+        });
+    };
+    return BlockMap;
+}());
+var processing_map = new BlockMap();
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var walletPath, wallet, userExists, ccpPath, ccp, gateway, network, listener, error_1;
@@ -154,11 +276,12 @@ function main() {
                 case 4:
                     network = _a.sent();
                     return [4 /*yield*/, network.addBlockListener(function (block) { return __awaiter(_this, void 0, void 0, function () {
+                            var parsed_block;
                             return __generator(this, function (_a) {
-                                // Add the block to the processing map by block numberrrr
-                                //await ProcessingMap.set(block.blockData.header.number, block.blockData);
-                                parseFabricBlock(block.blockData);
-                                console.log("Added block " + block.blockData.header.number + " to ProcessingMap");
+                                parsed_block = parseFabricBlock(block.blockData);
+                                //add to processing map
+                                processing_map.set(parsed_block.header.number, parsed_block);
+                                console.log("Added block " + parsed_block.header.number + " to ProcessingMap");
                                 return [2 /*return*/];
                             });
                         }); }, 
