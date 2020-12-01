@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const app = express();
+const socket = require('socket.io');
 
 interface Signature{
     creator_msp_id: string,
@@ -436,10 +437,16 @@ async function main() {
     //start express server and sockets
     app.use(express.static(path.join(__dirname, "visualfabric", "build")));
 
-    app.listen(5000, () => {
+    const server = app.listen(5000, () => {
         console.log('Visualfabric App started on port 5000');
     });
 
+    //sockets
+    const io = socket(server);
+
+    io.on('connection', (socket) => {
+        console.log('Made socket connection');
+    });
 }
 
 main();

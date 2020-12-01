@@ -40,6 +40,7 @@ var fs = require('fs');
 var path = require('path');
 var express = require('express');
 var app = express();
+var socket = require('socket.io');
 //parse long from object like Long {low: 34, high: 1}
 function parseLongIntoString(data) {
     var parsed = '';
@@ -251,7 +252,7 @@ var BlockMap = /** @class */ (function () {
 var processing_map = new BlockMap();
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var walletPath, wallet, userExists, ccpPath, ccp, gateway, network, listener, error_1;
+        var walletPath, wallet, userExists, ccpPath, ccp, gateway, network, listener, error_1, server, io;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -303,8 +304,12 @@ function main() {
                 case 7:
                     //start express server and sockets
                     app.use(express.static(path.join(__dirname, "visualfabric", "build")));
-                    app.listen(5000, function () {
+                    server = app.listen(5000, function () {
                         console.log('Visualfabric App started on port 5000');
+                    });
+                    io = socket(server);
+                    io.on('connection', function (socket) {
+                        console.log('Made socket connection');
                     });
                     return [2 /*return*/];
             }
