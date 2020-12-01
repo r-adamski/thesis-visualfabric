@@ -222,7 +222,7 @@ function parseFabricBlock(block: any): Block{
 
                     //parse hashed reads
                     let parsed_hashed_reads: HashInfo[] = [];
-                    collection.hashed_reads.forEach(hashed_read => {
+                    collection.hashed_rwset.hashed_reads.forEach(hashed_read => {
 
                         let single_hashed_read: HashInfo = {
                             key_hash: hashed_read.key_hash.toString('base64'),
@@ -236,7 +236,7 @@ function parseFabricBlock(block: any): Block{
 
                     //parse hashed writes
                     let parsed_hashed_writes: HashInfo[] = [];
-                    collection.hashed_writes.forEach(hashed_write => {
+                    collection.hashed_rwset.hashed_writes.forEach(hashed_write => {
 
                         let single_hashed_write: HashInfo = {
                             key_hash: hashed_write.key_hash.toString('base64'),

@@ -116,7 +116,7 @@ function parseFabricBlock(block) {
                 rw.collection_hashed_rwset.forEach(function (collection) {
                     //parse hashed reads
                     var parsed_hashed_reads = [];
-                    collection.hashed_reads.forEach(function (hashed_read) {
+                    collection.hashed_rwset.hashed_reads.forEach(function (hashed_read) {
                         var _a, _b;
                         var single_hashed_read = {
                             key_hash: hashed_read.key_hash.toString('base64'),
@@ -127,7 +127,7 @@ function parseFabricBlock(block) {
                     });
                     //parse hashed writes
                     var parsed_hashed_writes = [];
-                    collection.hashed_writes.forEach(function (hashed_write) {
+                    collection.hashed_rwset.hashed_writes.forEach(function (hashed_write) {
                         var single_hashed_write = {
                             key_hash: hashed_write.key_hash.toString('base64'),
                             is_delete: hashed_write === null || hashed_write === void 0 ? void 0 : hashed_write.is_delete,
