@@ -66,6 +66,8 @@ function parseFabricBlock(block) {
     //parse BlockData
     var parsed_data = [];
     block.data.data.forEach(function (element) {
+        if (!element.payload.data.actions)
+            return;
         //parse actions
         var parsed_actions = [];
         element.payload.data.actions.forEach(function (action) {

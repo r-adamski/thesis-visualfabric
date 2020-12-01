@@ -156,8 +156,10 @@ function parseFabricBlock(block: any): Block{
 
     //parse BlockData
     let parsed_data: BlockData[] = [];
+
     block.data.data.forEach(element => {
 
+        if(!element.payload.data.actions) return;
 
         //parse actions
         let parsed_actions: Action[] = [];
