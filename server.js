@@ -93,17 +93,17 @@ function parseFabricBlock(block) {
                     return;
                 //parse reads
                 var parsed_reads = [];
-                rw.rwest.reads.forEach(function (read) {
+                rw.rwset.reads.forEach(function (read) {
                     parsed_reads.push(read.key);
                 });
                 //parse range queries
                 var parsed_range_queries = [];
-                rw.rwest.range_queries_info.forEach(function (query) {
+                rw.rwset.range_queries_info.forEach(function (query) {
                     //parsed_range_queries.push(query.key);  idk whats inside
                 });
                 //parse writes
                 var parsed_writes = [];
-                rw.rwest.writes.forEach(function (write) {
+                rw.rwset.writes.forEach(function (write) {
                     var single_write = {
                         key: write.key,
                         is_delete: write.is_delete,

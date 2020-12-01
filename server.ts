@@ -192,19 +192,19 @@ function parseFabricBlock(block: any): Block{
 
                 //parse reads
                 let parsed_reads: string[] = [];
-                rw.rwest.reads.forEach(read => {
+                rw.rwset.reads.forEach(read => {
                     parsed_reads.push(read.key);
                 });
 
                 //parse range queries
                 let parsed_range_queries: string[] = [];
-                rw.rwest.range_queries_info.forEach(query => {
+                rw.rwset.range_queries_info.forEach(query => {
                     //parsed_range_queries.push(query.key);  idk whats inside
                 });
 
                 //parse writes
                 let parsed_writes: Write[] = [];
-                rw.rwest.writes.forEach(write => {
+                rw.rwset.writes.forEach(write => {
 
                     let single_write: Write = {
                         key: write.key,
