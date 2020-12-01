@@ -177,7 +177,7 @@ function parseFabricBlock(block) {
                     events: {
                         chaincode_id: action.payload.action.proposal_response_payload.extension.events.chaincode_id,
                         tx_id: action.payload.action.proposal_response_payload.extension.events.tx_id,
-                        event_name: action.payload.action.proposal_response_payload.extension.evens.event_name,
+                        event_name: action.payload.action.proposal_response_payload.extension.events.event_name,
                         payload: action.payload.action.proposal_response_payload.extension.events.payload.toString('base64')
                     },
                     response: {
