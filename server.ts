@@ -6,6 +6,10 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+
+app.use(cors());
+app.options('*', cors());
+
 const socket = require('socket.io');
 
 interface Signature{
@@ -436,7 +440,6 @@ async function main() {
     }
 
     //start express server and sockets
-    app.use(cors());
     app.use(express.static(path.join(__dirname, "visualfabric", "build")));
 
     const server = app.listen(5000, () => {
