@@ -39,6 +39,7 @@ var _a = require('fabric-network'), Wallets = _a.Wallets, Gateway = _a.Gateway;
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var socket = require('socket.io');
 //parse long from object like Long {low: 34, high: 1}
@@ -303,6 +304,7 @@ function main() {
                     return [3 /*break*/, 7];
                 case 7:
                     //start express server and sockets
+                    app.use(cors);
                     app.use(express.static(path.join(__dirname, "visualfabric", "build")));
                     server = app.listen(5000, function () {
                         console.log('Visualfabric App started on port 5000');

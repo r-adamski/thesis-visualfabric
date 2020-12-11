@@ -4,6 +4,7 @@ const { Wallets, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const socket = require('socket.io');
 
@@ -435,6 +436,7 @@ async function main() {
     }
 
     //start express server and sockets
+    app.use(cors);
     app.use(express.static(path.join(__dirname, "visualfabric", "build")));
 
     const server = app.listen(5000, () => {
