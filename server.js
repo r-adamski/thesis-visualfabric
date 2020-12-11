@@ -250,9 +250,11 @@ var BlockMap = /** @class */ (function () {
     return BlockMap;
 }());
 var processing_map = new BlockMap();
+var connections = []; //socket connections
+var io = null;
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var walletPath, wallet, userExists, ccpPath, ccp, gateway, network, listener, error_1, server, io;
+        var walletPath, wallet, userExists, ccpPath, ccp, gateway, network, listener, error_1, server;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -307,10 +309,18 @@ function main() {
                     server = app.listen(5000, function () {
                         console.log('Visualfabric App started on port 5000');
                     });
+                    //sockets
                     io = socket(server);
                     io.on('connection', function (client) {
-                        console.log('Made socket connection');
-                        client.emit('loadChain', { test: true });
+                        console.log('Connected: ' + client.id);
+                        connections.push(client);
+                        console.log('Sending chain data to: ' + client.id);
+                        client.emit('loadChain', processing_map.list);
+                        //disconnect
+                        client.on('disconnect', function () {
+                            console.log('Disconnected - ' + client.id);
+                            connections.filter(function (conn) { return conn.id === client.id; });
+                        });
                     });
                     io.listen(8000);
                     console.log('IO: listening on port 8000');

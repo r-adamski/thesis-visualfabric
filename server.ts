@@ -380,7 +380,10 @@ class BlockMap {
         })
     }
 }
+
 let processing_map = new BlockMap();
+const connections: any[] = []; //socket connections
+let io: any = null;
 
 async function main() {
 
@@ -443,12 +446,20 @@ async function main() {
     });
 
     //sockets
-    const io = socket(server);
+    io = socket(server);
 
     io.on('connection', (client: any) => {
-        console.log('Made socket connection');
+        console.log('Connected: ' + client.id);
+        connections.push(client);
 
-        client.emit('loadChain', {test: true})
+        console.log('Sending chain data to: ' + client.id);
+        client.emit('loadChain', processing_map.list);
+
+        //disconnect
+        client.on('disconnect', () => {
+            console.log('Disconnected - '+ client.id);
+            connections.filter((conn) => conn.id === client.id);
+        });
     });
 
     io.listen(8000);
