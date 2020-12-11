@@ -4,11 +4,7 @@ const { Wallets, Gateway } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const cors = require('cors');
 const app = express();
-
-app.use(cors());
-app.options('*', cors());
 
 const socket = require('socket.io');
 
@@ -449,14 +445,10 @@ async function main() {
     //sockets
     const io = socket(server);
 
-    //io.origins('*:*');
-
     io.on('connection', (client: any) => {
         console.log('Made socket connection');
 
-        client.on('loadChain', () => {
-            console.log('returning chain');
-        });
+        client.emit('loadChain', {test: true})
     });
 
     io.listen(8000);

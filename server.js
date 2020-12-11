@@ -39,10 +39,7 @@ var _a = require('fabric-network'), Wallets = _a.Wallets, Gateway = _a.Gateway;
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
-var cors = require('cors');
 var app = express();
-app.use(cors());
-app.options('*', cors());
 var socket = require('socket.io');
 //parse long from object like Long {low: 34, high: 1}
 function parseLongIntoString(data) {
@@ -311,12 +308,9 @@ function main() {
                         console.log('Visualfabric App started on port 5000');
                     });
                     io = socket(server);
-                    //io.origins('*:*');
                     io.on('connection', function (client) {
                         console.log('Made socket connection');
-                        client.on('loadChain', function () {
-                            console.log('returning chain');
-                        });
+                        client.emit('loadChain', { test: true });
                     });
                     io.listen(8000);
                     console.log('IO: listening on port 8000');
