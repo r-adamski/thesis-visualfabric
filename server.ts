@@ -449,6 +449,8 @@ async function main() {
     //sockets
     const io = socket(server);
 
+    io.origins('*:*');
+
     io.on('connection', (client: any) => {
         console.log('Made socket connection');
 
