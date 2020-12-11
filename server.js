@@ -311,7 +311,7 @@ function main() {
                         console.log('Visualfabric App started on port 5000');
                     });
                     io = socket(server);
-                    io.origins('*:*');
+                    //io.origins('*:*');
                     io.on('connection', function (client) {
                         console.log('Made socket connection');
                         client.on('loadChain', function () {
