@@ -304,7 +304,7 @@ function main() {
                     return [3 /*break*/, 7];
                 case 7:
                     //start express server and sockets
-                    app.use(cors);
+                    app.use(cors());
                     app.use(express.static(path.join(__dirname, "visualfabric", "build")));
                     server = app.listen(5000, function () {
                         console.log('Visualfabric App started on port 5000');
