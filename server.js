@@ -308,9 +308,14 @@ function main() {
                         console.log('Visualfabric App started on port 5000');
                     });
                     io = socket(server);
-                    io.on('connection', function (socket) {
+                    io.on('connection', function (client) {
                         console.log('Made socket connection');
+                        client.on('loadChain', function () {
+                            console.log('returning chain');
+                        });
                     });
+                    io.listen(8000);
+                    console.log('IO: listening on port 8000');
                     return [2 /*return*/];
             }
         });

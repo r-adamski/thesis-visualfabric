@@ -444,9 +444,18 @@ async function main() {
     //sockets
     const io = socket(server);
 
-    io.on('connection', (socket) => {
+    io.on('connection', (client: any) => {
         console.log('Made socket connection');
+
+        client.on('loadChain', () => {
+            console.log('returning chain');
+        });
     });
+
+    io.listen(8000);
+    console.log('IO: listening on port 8000');
+
+
 }
 
 main();
