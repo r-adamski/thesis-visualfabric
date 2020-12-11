@@ -1,23 +1,21 @@
 import React, {useEffect} from 'react';
 import {connect, useDispatch} from 'react-redux';
-import io from 'socket.io-client';
+import {io} from 'socket.io-client';
 import * as actions from '../store/actions/index';
 
+const Chain = (props: any) => {
 
-const chain = (props: any) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
 
-    const dispatch = useDispatch();
-
     //socket connection
-    const socket = io.connect('http://localhost:8000');
+    const socket = io('http://192.168.0.17:8000');
 
     dispatch(actions.loadChain(socket));
 
     return () => {
       console.log('chain cleanup');
-      socket.disconecct();
     }
   }, []);
 
@@ -39,4 +37,4 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(chain);
+export default connect(mapStateToProps, mapDispatchToProps)(Chain);
