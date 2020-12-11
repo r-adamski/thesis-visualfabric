@@ -10,7 +10,9 @@ const Chain = (props: any) => {
   useEffect(() => {
 
     //socket connection
-    const socket = io('http://192.168.0.17:8000');
+    const socket = io('http://192.168.0.17:8000', {
+      transports: ['websocket']
+    });
 
     dispatch(actions.loadChain(socket));
 
