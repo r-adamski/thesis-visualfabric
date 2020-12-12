@@ -152,7 +152,7 @@ function parseFabricBlock(block: any): Block{
 
         const signature: Signature = {
             creator_msp_id: element.signature_header.creator.mspid,
-            signature: element.signature.toString('base64')
+            signature: element.signature.toString()
         }
 
         parsed_signatures.push(signature);
@@ -172,7 +172,7 @@ function parseFabricBlock(block: any): Block{
             //parse input args
             let parsed_input_args: string[] = [];
             action.payload.chaincode_proposal_payload.input.chaincode_spec.input.args.forEach(arg => {
-                parsed_input_args.push(arg.toString('base64'));
+                parsed_input_args.push(arg.toString());
             });
 
             //parse endorsements signatures
@@ -181,7 +181,7 @@ function parseFabricBlock(block: any): Block{
 
                 let single_endorsm: Signature = {
                     creator_msp_id: endorsm.endorser.mspid,
-                    signature: endorsm.signature.toString('base64')
+                    signature: endorsm.signature.toString()
                 }
 
                 parsed_endorsements_signatures.push(single_endorsm);
@@ -229,7 +229,7 @@ function parseFabricBlock(block: any): Block{
                     collection.hashed_rwset.hashed_reads.forEach(hashed_read => {
 
                         let single_hashed_read: HashInfo = {
-                            key_hash: hashed_read.key_hash.toString('base64'),
+                            key_hash: hashed_read.key_hash.toString(),
                             block_num: parseLongIntoString(hashed_read?.version?.block_num), //long up to 64bit
                             tx_num: parseLongIntoString(hashed_read?.version?.tx_num), //long up to 64bit
                         }
@@ -243,9 +243,9 @@ function parseFabricBlock(block: any): Block{
                     collection.hashed_rwset.hashed_writes.forEach(hashed_write => {
 
                         let single_hashed_write: HashInfo = {
-                            key_hash: hashed_write.key_hash.toString('base64'),
+                            key_hash: hashed_write.key_hash.toString(),
                             is_delete: hashed_write?.is_delete,
-                            value_hash: hashed_write?.value_hash.toString('base64')
+                            value_hash: hashed_write?.value_hash.toString()
                         }
 
                         parsed_hashed_writes.push(single_hashed_write);
@@ -257,7 +257,7 @@ function parseFabricBlock(block: any): Block{
                         collection_name: collection.collection_name,
                         hashed_reads: parsed_hashed_reads,
                         hashed_writes: parsed_hashed_writes,
-                        pvt_rwset_hash: collection.pvt_rwset_hash.toString('base64')
+                        pvt_rwset_hash: collection.pvt_rwset_hash.toString()
                     }
 
                     parsed_collection_hashed_rw.push(single_collection);
@@ -281,7 +281,7 @@ function parseFabricBlock(block: any): Block{
             let single_action: Action = {
                 header: {
                     creator_msp_id: action.header.creator.mspid,
-                    creador_id_bytes: action.header.creator.id_bytes.toString('base64')
+                    creador_id_bytes: action.header.creator.id_bytes.toString()
                 },
                 chaincode_proposal_payload: {
                     type: action.payload.chaincode_proposal_payload.input.chaincode_spec.type,
@@ -293,7 +293,7 @@ function parseFabricBlock(block: any): Block{
                     chaincode_id_name: action.payload.chaincode_proposal_payload.input.chaincode_spec.chaincode_id.name
                 },
                 proposal_response_payload: {
-                    proposal_hash: action.payload.action.proposal_response_payload.proposal_hash.toString('base64'),
+                    proposal_hash: action.payload.action.proposal_response_payload.proposal_hash.toString(),
                     results:  {
                         data_model: action.payload.action.proposal_response_payload.extension.results.data_model,
                         ns_rwset: parsed_rwsets
@@ -302,12 +302,12 @@ function parseFabricBlock(block: any): Block{
                         chaincode_id: action.payload.action.proposal_response_payload.extension.events.chaincode_id,
                         tx_id: action.payload.action.proposal_response_payload.extension.events.tx_id,
                         event_name: action.payload.action.proposal_response_payload.extension.events.event_name,
-                        payload: action.payload.action.proposal_response_payload.extension.events.payload.toString('base64')
+                        payload: action.payload.action.proposal_response_payload.extension.events.payload.toString()
                     },
                     response: {
                         status: action.payload.action.proposal_response_payload.extension.response.status,
                         message: action.payload.action.proposal_response_payload.extension.response.message,
-                        payload: action.payload.action.proposal_response_payload.extension.response.payload.toString('base64')
+                        payload: action.payload.action.proposal_response_payload.extension.response.payload.toString()
                     },
                     chaincode_id: {
                         path: action.payload.action.proposal_response_payload.extension.chaincode_id.path,
@@ -322,19 +322,19 @@ function parseFabricBlock(block: any): Block{
 
 
         let single_data = {
-            signature: element.signature.toString('base64'),
+            signature: element.signature.toString(),
             channel_header: {
                 type: element.payload.header.channel_header.type,
                 version: element.payload.header.channel_header.version,
                 timestamp: element.payload.header.channel_header.timestamp,
                 channel_id: element.payload.header.channel_header.channel_id,
                 tx_id: element.payload.header.channel_header.tx_id,
-                extension: element.payload.header.channel_header.extension.toString('base64'),
+                extension: element.payload.header.channel_header.extension.toString(),
                 typeString: element.payload.header.channel_header.typeString
             },
             signature_header: {
                 creator_msp_id: element.payload.header.signature_header.creator.mspid,
-                creator_id_bytes: element.payload.header.signature_header.creator.id_bytes.toString('base64')
+                creator_id_bytes: element.payload.header.signature_header.creator.id_bytes.toString()
             },
             actions: parsed_actions
         }
@@ -345,12 +345,12 @@ function parseFabricBlock(block: any): Block{
     let parsed: Block = {
         header: {
             number: parseLongIntoString(block.header.number),
-            previous_hash: block.header.previous_hash.toString('base64'),
-            data_hash: block.header.data_hash.toString('base64')
+            previous_hash: block.header.previous_hash.toString(),
+            data_hash: block.header.data_hash.toString()
         },
         data: parsed_data,
         metadata: {
-            value: block.metadata.metadata[0].value.toString('base64'),
+            value: block.metadata.metadata[0].value.toString(),
             signatures: parsed_signatures
         }
     };
