@@ -152,7 +152,7 @@ function parseFabricBlock(block: any): Block{
 
         const signature: Signature = {
             creator_msp_id: element.signature_header.creator.mspid,
-            signature: element.signature.toString()
+            signature: element.signature.toString('hex')
         }
 
         parsed_signatures.push(signature);
@@ -172,7 +172,7 @@ function parseFabricBlock(block: any): Block{
             //parse input args
             let parsed_input_args: string[] = [];
             action.payload.chaincode_proposal_payload.input.chaincode_spec.input.args.forEach(arg => {
-                parsed_input_args.push(arg.toString());
+                parsed_input_args.push(arg.toString('hex'));
             });
 
             //parse endorsements signatures
@@ -181,7 +181,7 @@ function parseFabricBlock(block: any): Block{
 
                 let single_endorsm: Signature = {
                     creator_msp_id: endorsm.endorser.mspid,
-                    signature: endorsm.signature.toString()
+                    signature: endorsm.signature.toString('hex')
                 }
 
                 parsed_endorsements_signatures.push(single_endorsm);
@@ -229,7 +229,7 @@ function parseFabricBlock(block: any): Block{
                     collection.hashed_rwset.hashed_reads.forEach(hashed_read => {
 
                         let single_hashed_read: HashInfo = {
-                            key_hash: hashed_read.key_hash.toString(),
+                            key_hash: hashed_read.key_hash.toString('hex'),
                             block_num: parseLongIntoString(hashed_read?.version?.block_num), //long up to 64bit
                             tx_num: parseLongIntoString(hashed_read?.version?.tx_num), //long up to 64bit
                         }
@@ -243,9 +243,9 @@ function parseFabricBlock(block: any): Block{
                     collection.hashed_rwset.hashed_writes.forEach(hashed_write => {
 
                         let single_hashed_write: HashInfo = {
-                            key_hash: hashed_write.key_hash.toString(),
+                            key_hash: hashed_write.key_hash.toString('hex'),
                             is_delete: hashed_write?.is_delete,
-                            value_hash: hashed_write?.value_hash.toString()
+                            value_hash: hashed_write?.value_hash.toString('hex')
                         }
 
                         parsed_hashed_writes.push(single_hashed_write);
@@ -257,7 +257,7 @@ function parseFabricBlock(block: any): Block{
                         collection_name: collection.collection_name,
                         hashed_reads: parsed_hashed_reads,
                         hashed_writes: parsed_hashed_writes,
-                        pvt_rwset_hash: collection.pvt_rwset_hash.toString()
+                        pvt_rwset_hash: collection.pvt_rwset_hash.toString('hex')
                     }
 
                     parsed_collection_hashed_rw.push(single_collection);
@@ -293,7 +293,7 @@ function parseFabricBlock(block: any): Block{
                     chaincode_id_name: action.payload.chaincode_proposal_payload.input.chaincode_spec.chaincode_id.name
                 },
                 proposal_response_payload: {
-                    proposal_hash: action.payload.action.proposal_response_payload.proposal_hash.toString(),
+                    proposal_hash: action.payload.action.proposal_response_payload.proposal_hash.toString('hex'),
                     results:  {
                         data_model: action.payload.action.proposal_response_payload.extension.results.data_model,
                         ns_rwset: parsed_rwsets
@@ -322,14 +322,14 @@ function parseFabricBlock(block: any): Block{
 
 
         let single_data = {
-            signature: element.signature.toString(),
+            signature: element.signature.toString('hex'),
             channel_header: {
                 type: element.payload.header.channel_header.type,
                 version: element.payload.header.channel_header.version,
                 timestamp: element.payload.header.channel_header.timestamp,
                 channel_id: element.payload.header.channel_header.channel_id,
                 tx_id: element.payload.header.channel_header.tx_id,
-                extension: element.payload.header.channel_header.extension.toString(),
+                extension: element.payload.header.channel_header.extension.toString('hex'),
                 typeString: element.payload.header.channel_header.typeString
             },
             signature_header: {
@@ -345,12 +345,12 @@ function parseFabricBlock(block: any): Block{
     let parsed: Block = {
         header: {
             number: parseLongIntoString(block.header.number),
-            previous_hash: block.header.previous_hash.toString(),
-            data_hash: block.header.data_hash.toString()
+            previous_hash: block.header.previous_hash.toString('hex'),
+            data_hash: block.header.data_hash.toString('hex')
         },
         data: parsed_data,
         metadata: {
-            value: block.metadata.metadata[0].value.toString(),
+            value: block.metadata.metadata[0].value.toString('hex'),
             signatures: parsed_signatures
         }
     };
