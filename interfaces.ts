@@ -1,16 +1,16 @@
 
-interface Signature{
+export interface Signature{
     creator_msp_id: string,
     signature: string
 }
 
-interface Write{
+export interface Write{
     key: string,
     is_delete: boolean,
     value: string
 }
 
-interface HashInfo{
+export interface HashInfo{
     key_hash: string,
     block_num?: string, //long up to 64bit
     tx_num?: string, //long up to 64bit
@@ -18,7 +18,7 @@ interface HashInfo{
     value_hash?: string
 }
 
-interface CollectionHashedRWSet{
+export interface CollectionHashedRWSet{
     collection_name: string,
     hashed_reads: HashInfo[],
     hashed_writes: HashInfo[] ,
@@ -26,7 +26,7 @@ interface CollectionHashedRWSet{
 }
 
 //if namespace === lscc ignore
-interface RWSet{
+export interface RWSet{
     namespace: string,
     rwset: {
         reads: string[],
@@ -36,7 +36,7 @@ interface RWSet{
     collection_hashed_rwset: CollectionHashedRWSet[]
 }
 
-interface Action{
+export interface Action{
     header: {
         creator_msp_id: string,
         creador_id_bytes: string
@@ -77,7 +77,7 @@ interface Action{
     endorsements: Signature[]
 }
 
-interface BlockData{
+export interface BlockData{
     signature: string,
     channel_header: {
         type: number,
@@ -95,7 +95,7 @@ interface BlockData{
     actions: Action[]
 }
 
-interface Block{
+export interface Block{
     header: {
         number: string, //long up to 64bit
         previous_hash: string,
@@ -108,7 +108,7 @@ interface Block{
     }
 }
 
-interface MapEntry{
+export interface MapEntry{
     id: string,
     data: Block
 }
