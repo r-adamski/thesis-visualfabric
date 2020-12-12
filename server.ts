@@ -169,6 +169,8 @@ function parseFabricBlock(block: any): Block{
         let parsed_actions: Action[] = [];
         element.payload.data.actions.forEach(action => {
 
+            console.log('parsing action');
+
             //parse input args
             let parsed_input_args: string[] = [];
             action.payload.chaincode_proposal_payload.input.chaincode_spec.input.args.forEach(arg => {
