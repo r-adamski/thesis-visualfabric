@@ -9,8 +9,8 @@ import {
     Signature, Write, HashInfo, CollectionHashedRWSet,
     RWSet, Action, BlockData, Block, MapEntry
 } from './interfaces';
-
-const socket = require('socket.io');
+const ioserver = require('socket.io');
+import {Socket} from 'socket.io';
 
 // interface Signature{
 //     creator_msp_id: string,
@@ -377,7 +377,7 @@ class BlockMap {
     set(key: string, data: Block) {
 
         //remove old if exist
-        this.list.filter(el => el.id === key);
+        this.list = this.list.filter(el => el.id === key);
         //push new
         this.list.push({
             id: key,
@@ -387,7 +387,7 @@ class BlockMap {
 }
 
 let processing_map = new BlockMap();
-const connections: any[] = []; //socket connections
+let connections: Socket[] = []; //socket connections
 let io: any = null;
 
 async function main() {
@@ -451,9 +451,9 @@ async function main() {
     });
 
     //sockets
-    io = socket(server);
+    io = ioserver(server);
 
-    io.on('connection', (client: any) => {
+    io.on('connection', (client: Socket) => {
         console.log('Connected: ' + client.id);
         connections.push(client);
 
@@ -463,7 +463,7 @@ async function main() {
         //disconnect
         client.on('disconnect', () => {
             console.log('Disconnected - '+ client.id);
-            connections.filter((conn) => conn.id === client.id);
+            connections = connections.filter((conn) => conn.id === client.id);
         });
     });
 
