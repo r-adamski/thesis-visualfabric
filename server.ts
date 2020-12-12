@@ -377,7 +377,7 @@ class BlockMap {
     set(key: string, data: Block) {
 
         //remove old if exist
-        this.list = this.list.filter(el => el.id === key);
+        this.list = this.list.filter(el => el.id !== key);
         //push new
         this.list.push({
             id: key,
@@ -463,7 +463,7 @@ async function main() {
         //disconnect
         client.on('disconnect', () => {
             console.log('Disconnected - '+ client.id);
-            connections = connections.filter((conn) => conn.id === client.id);
+            connections = connections.filter((conn) => conn.id !== client.id);
         });
     });
 

@@ -347,7 +347,7 @@ var BlockMap = /** @class */ (function () {
     };
     BlockMap.prototype.set = function (key, data) {
         //remove old if exist
-        this.list = this.list.filter(function (el) { return el.id === key; });
+        this.list = this.list.filter(function (el) { return el.id !== key; });
         //push new
         this.list.push({
             id: key,
@@ -426,7 +426,7 @@ function main() {
                         //disconnect
                         client.on('disconnect', function () {
                             console.log('Disconnected - ' + client.id);
-                            connections = connections.filter(function (conn) { return conn.id === client.id; });
+                            connections = connections.filter(function (conn) { return conn.id !== client.id; });
                         });
                     });
                     io.listen(8000);
