@@ -196,6 +196,7 @@ function parseFabricBlock(block) {
                 },
                 endorsements: parsed_endorsements_signatures
             };
+            parsed_actions.push(single_action);
         });
         var single_data = {
             signature: element.signature.toString('base64'),

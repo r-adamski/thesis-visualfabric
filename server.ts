@@ -317,6 +317,7 @@ function parseFabricBlock(block: any): Block{
                 },
                 endorsements: parsed_endorsements_signatures
             }
+            parsed_actions.push(single_action);
         });
 
 
