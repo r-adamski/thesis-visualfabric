@@ -69,7 +69,7 @@ function parseFabricBlock(block) {
     //parse BlockData
     var parsed_data = [];
     block.data.data.forEach(function (element) {
-        if (!element.payload.data.actions)
+        if (element.payload.data.actions.length === 0)
             return;
         //parse actions
         var parsed_actions = [];
@@ -198,7 +198,7 @@ function parseFabricBlock(block) {
             };
         });
         var single_data = {
-            signature: element.signature,
+            signature: element.signature.toString('base64'),
             channel_header: {
                 type: element.payload.header.channel_header.type,
                 version: element.payload.header.channel_header.version,

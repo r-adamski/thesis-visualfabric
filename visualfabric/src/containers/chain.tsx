@@ -21,8 +21,10 @@ const Chain = (props: any) => {
     }
   }, []);
 
+  const data = JSON.stringify(props.chain);
+
   return (
-    <div>this is chain</div>
+    <div>{data}</div>
   );
 }
 

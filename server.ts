@@ -163,7 +163,7 @@ function parseFabricBlock(block: any): Block{
 
     block.data.data.forEach(element => {
 
-        if(!element.payload.data.actions) return;
+        if(element.payload.data.actions.length === 0) return;
 
         //parse actions
         let parsed_actions: Action[] = [];
@@ -321,7 +321,7 @@ function parseFabricBlock(block: any): Block{
 
 
         let single_data = {
-            signature: element.signature,
+            signature: element.signature.toString('base64'),
             channel_header: {
                 type: element.payload.header.channel_header.type,
                 version: element.payload.header.channel_header.version,
