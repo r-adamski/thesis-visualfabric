@@ -110,7 +110,7 @@ function parseFabricBlock(block) {
                     var single_write = {
                         key: write.key,
                         is_delete: write.is_delete,
-                        value: write.value.toString()
+                        value: write.value.toString('utf-8')
                     };
                     parsed_writes.push(single_write);
                 });
