@@ -213,7 +213,7 @@ function parseFabricBlock(block: any): Block{
                     let single_write: Write = {
                         key: write.key,
                         is_delete: write.is_delete,
-                        value: write.value.toString('base64')
+                        value: write.value.toString('hex')
                     }
 
                     parsed_writes.push(single_write);
