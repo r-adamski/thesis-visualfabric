@@ -432,6 +432,7 @@ async function main() {
 
                 //sending sockets newBlock
                 connections.forEach((conn: Socket) => {
+                    console.log('Sending addBlock socket: blockNR:' + parsed_block.header.number);
                     conn.emit('addBlock', {id: parsed_block.header.number, data: parsed_block});
                 });
 

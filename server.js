@@ -398,6 +398,7 @@ function main() {
                                 console.log("Added block " + parsed_block.header.number + " to ProcessingMap");
                                 //sending sockets newBlock
                                 connections.forEach(function (conn) {
+                                    console.log('Sending addBlock socket: blockNR:' + parsed_block.header.number);
                                     conn.emit('addBlock', { id: parsed_block.header.number, data: parsed_block });
                                 });
                                 return [2 /*return*/];
