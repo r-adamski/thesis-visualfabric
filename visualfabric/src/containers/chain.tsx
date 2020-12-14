@@ -2,18 +2,19 @@ import React, {useEffect} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {io, Socket} from 'socket.io-client';
 import * as actions from '../store/actions/index';
+import Block from '../components/block';
 
 import {MapEntry} from '../../../interfaces';
+import classes from './chain.module.scss';
 
 const Chain = (props: any) => {
 
   const dispatch = useDispatch();
-  let socket: Socket;
 
   useEffect(() => {
 
     //socket connection
-    socket = io('http://192.168.0.17:8000', {
+    const socket: Socket = io('http://192.168.0.17:8000', {
       transports: ['websocket']
     });
 
@@ -21,31 +22,41 @@ const Chain = (props: any) => {
     dispatch(actions.loadChain(socket));
 
     socket.on('addBlock', (res: MapEntry) => {
+      console.log('AddBlock socket event');
       dispatch(actions.addBlock(res));
     });
 
     return () => {
-      console.log('chain cleanup');
+      console.log('socket disconnect');
+      socket.disconnect();
     }
   }, []);
 
-  const data = JSON.stringify(props.chain);
+
+  let data;
+  if(Array.isArray(props.chain)){
+  data = props.chain.map((el: MapEntry) => (
+    <Block key={el.id} data={el} />
+  ));
+  }
 
   return (
-    <div>{data}</div>
+    <div className={classes.chain}>
+      {data}
+    </div>
   );
 }
 
 
 const mapStateToProps = (state: any) => {
   return {
-    chain: state.chain
+    chain: state.chain.chain
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    loadChain: (socket: any) => dispatch(actions.loadChain(socket))
+    loadChain: (socket: Socket) => dispatch(actions.loadChain(socket))
   }
 }
 

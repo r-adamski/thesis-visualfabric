@@ -13,13 +13,11 @@ const initState: State = {
 const reducer = (state = initState, action: any) => {
     switch (action.type) {
         case actionTypes.INIT_CHAIN: {
-
             return {
-                chain: action.loadedChain
+                chain: [...action.loadedChain]
             }
         }
         case actionTypes.ADD_BLOCK: {
-
             return {
                 chain: [...state.chain, action.newBlock]
                 //nested objects - should be immutable

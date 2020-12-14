@@ -6,10 +6,11 @@ const layout = (props: any) => {
 
     return (
         <Fragment>
-            <header>
-                by Rafał Adamski &copy; 2020
+            <header className={classes.header}>
+                VisualFabric by Rafał Adamski - Thesis<br/>
+                Military University of Technology
             </header>
-            <main className={classes.Layout}>
+            <main className={classes.layout}>
                 {props.children}
             </main>
         </Fragment>

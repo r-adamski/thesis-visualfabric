@@ -1,0 +1,20 @@
+.group {
+    position: relative;
+    padding: 5px;
+    padding-top: 20px;
+    border: 1px dashed #646464;
+    border-radius: 8px;
+
+    h3{
+        display: block;
+        margin: 0;
+        position: absolute;
+        color: darkcyan;
+        font-size: .8rem;
+        top: -8px;
+        left: 20px;
+        padding: 0 6px 0 6px;
+        background-color: #303030;
+    }
+
+}
