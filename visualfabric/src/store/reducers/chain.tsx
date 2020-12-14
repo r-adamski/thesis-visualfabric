@@ -1,7 +1,12 @@
 import { act } from 'react-dom/test-utils';
 import * as actionTypes from '../actions/actionTypes';
+import { MapEntry } from '../../../../interfaces';
 
-const initState = {
+interface State {
+    chain: MapEntry[]
+}
+
+const initState: State = {
     chain: []
 }
 
@@ -13,8 +18,13 @@ const reducer = (state = initState, action: any) => {
                 chain: action.loadedChain
             }
         }
-        case actionTypes.SET_BLOCK: {
-            return state;
+        case actionTypes.ADD_BLOCK: {
+
+            return {
+                chain: [...state.chain, action.newBlock]
+                //nested objects - should be immutable
+            }
+
         }
         default:
             return state;

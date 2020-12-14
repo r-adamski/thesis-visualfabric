@@ -430,6 +430,11 @@ async function main() {
 
                 console.log(`Added block ${parsed_block.header.number} to ProcessingMap`);
 
+                //sending sockets newBlock
+                connections.forEach((conn: Socket) => {
+                    conn.emit('addBlock', {id: parsed_block.header.number, data: parsed_block});
+                });
+
             },
             // set the starting block for the listener
             { filtered: false, startBlock: 0 }

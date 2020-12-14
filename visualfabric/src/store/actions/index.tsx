@@ -1,3 +1,4 @@
 export {
-    loadChain
+    loadChain,
+    addBlock
 } from './chain';

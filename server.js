@@ -396,6 +396,10 @@ function main() {
                                 //add to processing map
                                 processing_map.set(parsed_block.header.number, parsed_block);
                                 console.log("Added block " + parsed_block.header.number + " to ProcessingMap");
+                                //sending sockets newBlock
+                                connections.forEach(function (conn) {
+                                    conn.emit('addBlock', { id: parsed_block.header.number, data: parsed_block });
+                                });
                                 return [2 /*return*/];
                             });
                         }); }, 
