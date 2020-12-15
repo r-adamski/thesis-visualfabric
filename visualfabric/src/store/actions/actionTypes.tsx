@@ -1,2 +1,5 @@
 export const INIT_CHAIN = 'INIT_CHAIN';
 export const ADD_BLOCK = 'ADD_BLOCK';
+
+export const SHOW_ADVANCED_BLOCK = 'SHOW_ADVANCED_BLOCK';
+export const HIDE_ADVANCED_BLOCK = 'HIDE_ADVANCED_BLOCK';

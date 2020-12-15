@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils';
 import * as actionTypes from '../actions/actionTypes';
 import { MapEntry } from '../../../../interfaces';
 
@@ -10,7 +9,7 @@ const initState: State = {
     chain: []
 }
 
-const reducer = (state = initState, action: any) => {
+const chainReducer = (state = initState, action: any) => {
     switch (action.type) {
         case actionTypes.INIT_CHAIN: {
             return {
@@ -29,4 +28,4 @@ const reducer = (state = initState, action: any) => {
     }
 }
 
-export default reducer;
+export default chainReducer;

@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {io, Socket} from 'socket.io-client';
-import * as actions from '../store/actions/index';
-import Block from '../components/block';
+import * as actions from '../../store/actions/index';
+import Block from '../../components/Block/block';
 
-import {MapEntry} from '../../../interfaces';
+import {MapEntry} from '../../../../interfaces';
 import classes from './chain.module.scss';
 
 const Chain = (props: any) => {
@@ -34,9 +34,10 @@ const Chain = (props: any) => {
 
 
   let data;
+  //TODO: loading 
   if(Array.isArray(props.chain)){
   data = props.chain.map((el: MapEntry) => (
-    <Block key={el.id} data={el} />
+    <Block key={el.id} data={el} showAdvanced={() => props.showAdvancedBlock(el)}/>
   ));
   }
 
@@ -56,7 +57,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    loadChain: (socket: Socket) => dispatch(actions.loadChain(socket))
+    loadChain: (socket: Socket) => dispatch(actions.loadChain(socket)),
+    showAdvancedBlock: (data: MapEntry) => dispatch(actions.showAdvancedBlock(data))
   }
 }
 

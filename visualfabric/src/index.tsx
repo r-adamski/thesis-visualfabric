@@ -7,12 +7,14 @@ import thunk from 'redux-thunk';
 
 import App from './App';
 import chainReducer from './store/reducers/chain';
+import blockReducer from './store/reducers/advancedBlock';
 
 
 const composeEnhancers = compose;
 
 const rootReducer = combineReducers({
-  chain: chainReducer
+  chain: chainReducer,
+  block: blockReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
