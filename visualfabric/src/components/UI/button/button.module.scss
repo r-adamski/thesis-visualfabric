@@ -1,0 +1,30 @@
+.button{
+    padding: 5px 20px 4px 20px;
+    background: none;
+    box-shadow: none;
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: #ccc;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform .3s, color .3s, background-color .3s, border-color .3s;
+
+    &:active, &:focus{
+        transform: scale(.95);
+    }
+
+    &.info{
+
+    }
+
+    &.danger{
+        color: #ccc;
+        border-color: #ccc;
+        background-color: rgba(255, 0, 0, 0.349);
+
+        &:hover{
+            background-color: rgba(255, 0, 0, 0.274);
+        }
+    }
+}

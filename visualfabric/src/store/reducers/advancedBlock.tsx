@@ -11,7 +11,7 @@ const initState: State = {
     visible: false
 }
 
-const blockReducer = (state = initState, action: any) => {
+const reducer = (state = initState, action: any) => {
     switch (action.type) {
         case actionTypes.SHOW_ADVANCED_BLOCK: {
             const newData = {...action.data};
@@ -32,4 +32,4 @@ const blockReducer = (state = initState, action: any) => {
     }
 }
 
-export default blockReducer;
+export default reducer;

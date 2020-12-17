@@ -1,0 +1,54 @@
+.advBlock{
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100% - 60px);
+    height: calc(100vh - 60px);
+    overflow-y: scroll;
+    margin: 10px;
+    padding: 20px;
+    background-color: #303030;
+    border: 1px solid #646464;
+    z-index: 99;
+    letter-spacing: 0.04rem;
+    border-radius: 5px;
+    font-weight: 500;
+    transform: scale(.9);
+    transition: opacity .3s .1s, transform .4s .1s, visibility 0s .4s;
+
+
+    @media screen and (min-width: 900px) {
+        width: calc(100% - 100px);
+        height: calc(100vh - 100px);
+        margin: 30px;
+    }
+
+    &.visible{
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity .3s .1s, transform .4s .1s, visibility 0s 0s;
+    }
+
+
+    .closeBtn{
+        position: absolute;
+        right: 20px;
+    }
+
+    h2{
+        margin: 0;
+        margin-bottom: 20px;
+
+        .number{
+            font-style: italic;
+            margin-left: 5px;
+            color: gold;
+        }
+    }
+
+
+
+}

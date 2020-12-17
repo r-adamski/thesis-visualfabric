@@ -39,7 +39,7 @@ export interface RWSet{
 export interface Action{
     header: {
         creator_msp_id: string,
-        creador_id_bytes: string
+        creator_id_bytes: string
     },
     chaincode_proposal_payload: {
         type: number,

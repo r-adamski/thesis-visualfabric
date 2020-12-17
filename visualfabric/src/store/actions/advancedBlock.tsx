@@ -8,8 +8,8 @@ export const showAdvancedBlock = (data: MapEntry) => (
     }
 );
 
-export const hideAdvancedBlock = () => (
-    {
+export const hideAdvancedBlock = () => {
+    return {
         type: actionTypes.HIDE_ADVANCED_BLOCK
     }
-);
+};

@@ -9,7 +9,7 @@ const initState: State = {
     chain: []
 }
 
-const chainReducer = (state = initState, action: any) => {
+const reducer = (state = initState, action: any) => {
     switch (action.type) {
         case actionTypes.INIT_CHAIN: {
             return {
@@ -28,4 +28,4 @@ const chainReducer = (state = initState, action: any) => {
     }
 }
 
-export default chainReducer;
+export default reducer;

@@ -28,11 +28,18 @@
     }
 
     .header{
-        margin-bottom: 30px;
+        //margin-bottom: 30px;
     }
 
     .transaction{
-        margin-bottom: 30px;
+        //margin-bottom: 30px;
     }
 
+}
+
+@media screen and (min-width: 1800px) {
+    .block{
+        width: 45%;
+        margin-bottom: 60px;
+    }
 }

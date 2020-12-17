@@ -266,7 +266,7 @@ function parseFabricBlock(block) {
             var single_action = {
                 header: {
                     creator_msp_id: action.header.creator.mspid,
-                    creador_id_bytes: action.header.creator.id_bytes.toString()
+                    creator_id_bytes: action.header.creator.id_bytes.toString()
                 },
                 chaincode_proposal_payload: {
                     type: action.payload.chaincode_proposal_payload.input.chaincode_spec.type,

@@ -1,6 +1,22 @@
 .chain{
     margin-top: 100px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
 
+}
+
+@media screen and (min-width: 1000px) {
+    .chain{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    .chain{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        column-gap: 4%;
+    }
 }

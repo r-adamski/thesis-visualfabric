@@ -4,6 +4,12 @@
     padding-top: 20px;
     border: 1px dashed #646464;
     border-radius: 8px;
+    margin-top: 30px;
+    transition: border-color .1s;
+
+    &:hover{
+        border-color: rgba(204, 204, 204, 0.8);
+    }
 
     h3{
         display: block;
@@ -15,6 +21,12 @@
         left: 20px;
         padding: 0 6px 0 6px;
         background-color: #303030;
+    }
+
+    &.object{
+        h3{
+            color: rgb(121, 199, 199);
+        }
     }
 
 }
