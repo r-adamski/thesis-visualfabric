@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/hoc/layout/layout.module.scss"],"names":[],"mappings":"AAAA,sBACI,oBAAqB","file":"main.7082925a.chunk.css","sourcesContent":[".Layout{\r\n    background-color: red;\r\n}"]}

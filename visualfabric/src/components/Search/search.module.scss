@@ -1,0 +1,21 @@
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 40px;
+
+    div{
+        width: 100%;
+        text-align: center;
+        input{
+            margin-left: 10px;
+        }
+    }
+
+    .nr{
+
+    }
+
+    .writes{
+        margin-top: 20px;
+    }
+}
